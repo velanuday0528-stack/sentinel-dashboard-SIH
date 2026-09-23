@@ -1,0 +1,161 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@theme inline {
+  /* Brand palette */
+  --color-background: #050505;
+  --color-foreground: #ffffff;
+
+  --color-black-soft: #0b0b0f;
+
+  --color-blue: #0066ff;
+  --color-blue-bright: #00a8ff;
+  --color-red: #ff1744;
+  --color-red-deep: #b00020;
+  --color-gold: #d4af37;
+  --color-gold-bright: #ffd700;
+
+  /* Semantic mappings */
+  --color-primary: #0066ff;
+  --color-primary-foreground: #ffffff;
+  --color-accent: #ff1744;
+  --color-accent-foreground: #ffffff;
+  --color-muted: #0b0b0f;
+  --color-muted-foreground: #9aa3b2;
+  --color-card: #0b0b0f;
+  --color-card-foreground: #ffffff;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-ring: #0066ff;
+
+  --font-display: var(--font-orbitron), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --radius: 1rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  ::selection {
+    background: rgba(0, 102, 255, 0.35);
+    color: #fff;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(#0066ff, #ff1744);
+  border-radius: 8px;
+}
+
+/* ---- Utility effects ---- */
+@utility text-glow-blue {
+  text-shadow: 0 0 18px rgba(0, 168, 255, 0.55);
+}
+@utility text-glow-red {
+  text-shadow: 0 0 18px rgba(255, 23, 68, 0.55);
+}
+
+/* Glassmorphism surface */
+.glass {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0.02)
+  );
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Circuit / grid backdrop */
+.grid-backdrop {
+  background-image:
+    linear-gradient(rgba(0, 102, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 102, 255, 0.06) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse at center, black 40%, transparent 78%);
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Animations */
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(0, 102, 255, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 34px rgba(0, 102, 255, 0.75);
+  }
+}
+.animate-pulse-glow {
+  animation: pulse-glow 2.8s ease-in-out infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
